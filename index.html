@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sydney Suburb Quiz</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
+  <link rel="stylesheet" href="./src/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Sydney Suburb Quiz</h1>
+    <nav class="modes" role="tablist">
+      <button class="mode" data-mode="type" role="tab">Name them all</button>
+      <button class="mode" data-mode="click" role="tab">Find on map</button>
+    </nav>
+    <div class="options">
+      <label>Region
+        <select id="regionSelect"><option value="">All of Sydney</option></select>
+      </label>
+      <label>Map
+        <select id="basemapSelect">
+          <option value="street">Street</option>
+          <option value="satellite">Satellite</option>
+          <option value="none">Outlines only</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <main>
+    <div id="map"></div>
+
+    <!-- Mode 1: type names, suburbs turn green -->
+    <section id="typePanel" class="panel" hidden>
+      <input id="guess" type="text" autocomplete="off" spellcheck="false"
+             placeholder="Type a suburb name…" aria-label="Suburb name" />
+      <p id="typeFeedback" class="feedback">&nbsp;</p>
+      <div class="stats">
+        <div><strong id="typeCount">0</strong> / <span id="typeTotal">0</span> found</div>
+        <div id="typeTimer">0:00</div>
+      </div>
+      <div class="progress"><div id="typeBar"></div></div>
+      <div class="row">
+        <button id="giveUpBtn" class="secondary">Give up</button>
+        <button id="typeRestartBtn" class="secondary">Restart</button>
+      </div>
+      <h3>Recently found</h3>
+      <ul id="recent" class="recent"></ul>
+    </section>
+
+    <!-- Mode 2: a suburb is named, click it on the map -->
+    <section id="clickPanel" class="panel" hidden>
+      <div id="clickSetup">
+        <p>A suburb is named — click where it is. Three wrong clicks and it gets shown to you.</p>
+        <label>Questions
+          <select id="questionCount">
+            <option value="10">10</option>
+            <option value="25" selected>25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="all">All</option>
+          </select>
+        </label>
+        <button id="clickStartBtn">Start</button>
+      </div>
+      <div id="clickGame" hidden>
+        <p class="prompt">Where is <strong id="target"></strong>?</p>
+        <p id="clickFeedback" class="feedback">&nbsp;</p>
+        <div class="stats">
+          <div>Question <strong id="qNum">1</strong> / <span id="qTotal">0</span></div>
+          <div id="clickTimer">0:00</div>
+        </div>
+        <div class="progress"><div id="clickBar"></div></div>
+        <div class="row">
+          <button id="skipBtn" class="secondary">Skip</button>
+          <button id="clickRestartBtn" class="secondary">Restart</button>
+        </div>
+        <ul class="legend">
+          <li><span class="sw found"></span>First try</li>
+          <li><span class="sw partial"></span>2–3 tries</li>
+          <li><span class="sw missed"></span>Missed</li>
+        </ul>
+      </div>
+      <div id="clickDone" hidden>
+        <h2>Done!</h2>
+        <p id="summary"></p>
+        <button id="clickAgainBtn">Play again</button>
+      </div>
+    </section>
+
+    <p id="loading" class="loading">Loading suburbs…</p>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet@0.0.22/leaflet-maplibre-gl.js"></script>
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>

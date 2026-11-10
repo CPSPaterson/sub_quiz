@@ -1,0 +1,10 @@
+node_modules/
+.DS_Store
+npm-debug.log
+
+# Large raw map data, not needed by the website (see README to rebuild)
+libraries/
+suburbjsons/suburb/
+suburbjsons/almost.geojson
+suburbjsons/subs.geojson
+suburbjsons/xaj.geojson

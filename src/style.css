@@ -1,0 +1,116 @@
+:root {
+  --bg: #f8fafc;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --accent: #0366d6;
+  --found: #22c55e;
+  --partial: #f59e0b;
+  --missed: #ef4444;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: Inter, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+[hidden] { display: none !important; }
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  padding: 10px 16px;
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  z-index: 1100;
+}
+.topbar h1 { margin: 0; font-size: 20px; }
+.modes { display: flex; gap: 6px; }
+.options { margin-left: auto; display: flex; flex-wrap: wrap; gap: 8px 16px; }
+.options label { color: var(--muted); font-size: 14px; display: flex; gap: 6px; align-items: center; }
+.options select { font: inherit; color: var(--ink); padding: 5px 6px; border: 1px solid #cbd5e1; border-radius: 6px; background: #fff; }
+.leaflet-control .fit-btn { font-size: 16px; line-height: 30px; text-align: center; cursor: pointer; }
+
+button {
+  font: inherit;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button:active { transform: translateY(1px); }
+button.mode { background: #eef2f7; color: var(--ink); }
+button.mode.active { background: var(--accent); color: #fff; }
+button.secondary { background: #eef2f7; color: var(--ink); }
+button:disabled { opacity: .5; cursor: default; }
+
+main { position: relative; flex: 1; min-height: 0; }
+#map { position: absolute; inset: 0; background: #e8eef3; }
+
+.panel {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1000;
+  width: 300px;
+  max-height: calc(100% - 24px);
+  overflow: auto;
+  padding: 14px;
+  background: rgba(255, 255, 255, .96);
+  border-radius: 10px;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, .15);
+}
+.panel h2 { margin: 0 0 8px; }
+.panel h3 { margin: 14px 0 6px; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.panel p { margin: 0 0 10px; }
+.panel label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.panel select { font: inherit; padding: 4px 6px; }
+
+#guess {
+  width: 100%;
+  font: inherit;
+  font-size: 17px;
+  padding: 10px 12px;
+  border: 2px solid #cbd5e1;
+  border-radius: 8px;
+  outline: none;
+}
+#guess:focus { border-color: var(--accent); }
+#guess.shake { animation: shake .3s; border-color: var(--missed); }
+@keyframes shake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+.feedback { min-height: 1.4em; margin: 6px 0 8px !important; font-size: 14px; color: var(--muted); }
+.feedback.good { color: #15803d; }
+.feedback.bad { color: #b91c1c; }
+
+.stats { display: flex; justify-content: space-between; font-size: 15px; margin-bottom: 6px; font-variant-numeric: tabular-nums; }
+.progress { height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; margin-bottom: 12px; }
+.progress > div { height: 100%; width: 0; background: var(--found); transition: width .2s; }
+.row { display: flex; gap: 8px; }
+
+.recent { list-style: none; margin: 0; padding: 0; font-size: 14px; }
+.recent li { padding: 3px 0; cursor: pointer; color: var(--accent); }
+.recent li:hover { text-decoration: underline; }
+
+.prompt { font-size: 20px; }
+.legend { list-style: none; padding: 0; margin: 14px 0 0; display: flex; gap: 12px; font-size: 13px; color: var(--muted); }
+.sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 4px; vertical-align: -1px; }
+.sw.found { background: var(--found); }
+.sw.partial { background: var(--partial); }
+.sw.missed { background: var(--missed); }
+
+.loading { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; z-index: 1200; background: rgba(248, 250, 252, .8); font-size: 18px; }
+
+.leaflet-tooltip.suburb-tip { font-weight: 600; }
+
+@media (max-width: 640px) {
+  .panel { top: auto; bottom: 12px; left: 12px; right: 12px; width: auto; max-height: 45%; }
+  .topbar h1 { font-size: 17px; }
+}
